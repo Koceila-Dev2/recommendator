@@ -1,2 +1,5 @@
 mistralai
-request
+python-dotenv
+requests
+streamlit
+PyQt5

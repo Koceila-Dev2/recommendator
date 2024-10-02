@@ -12,7 +12,7 @@ MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
 mistral_client = Mistral(api_key=MISTRAL_API_KEY)
 
 def get_movie_info(title):
-    url = f"http://www.omdbapi.com/?t={title}&apikey={IMDB_API_KEY}"
+    url = f"http://www.omdbapi.com/?t={title}&apikey=6445ade7"
     response = requests.get(url)
     
     if response.status_code == 200:
