@@ -31,12 +31,23 @@ conversation_history = [
     
         ]
 
+
+chat_response = client.chat.complete(
+        model=model
+        
+        
+        
+       messages = conversation_history
+
+    )
+
 @app.route('/')
 def index():
     return render_template('movie_finder.html')
 
+
 @app.route('/generate', methods=['POST'])
-def generate( ):
+def generate():
     
    
    
@@ -50,10 +61,10 @@ def generate( ):
     )
     
     response_text = chat_response.choices[0].message.content
-    question = chat_response.choices[0].message.content
-    conversation_history.append({"role": "system", "content": question})
+    conversation_history.append({"role": "system", "content": response_text})
     user_input = request.form['prompt']
     conversation_history.append({"role": "user", "content": user_input})
+    
     return render_template('movie_finder.html', user_input=user_input, response_text=response_text)
 
 if __name__ == '__main__':
