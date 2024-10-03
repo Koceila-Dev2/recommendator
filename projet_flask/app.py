@@ -2,11 +2,11 @@ from flask import Flask, request, render_template, redirect, url_for
 from dotenv import load_dotenv
 import os
 from mistralai import Mistral
-
+api_key = "MVSiHD2xUeCbEjWPPj43lUrwIReJsp4h"
 app = Flask(__name__)
 load_dotenv()
 model = "mistral-large-latest"
-client = Mistral(api_key=os.environ["MISTRAL_API_KEY"])
+client = api_key
 
 @app.route('/', methods=['GET'])
 def home():
