@@ -1,48 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
   	<meta charset="utf-8">
-  	<meta name="viewport" content="initial-scale=1, width=device-width">
-  	<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
-  	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" />
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+  	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
+  	<title>MoovieFinder</title>
 </head>
-<body>
-  	<div class="macbook-air-1">
-    		<div class="top-bar">
-      			<div class="mooviefinder">
-        				<span class="moovie">MOOVIE</span>
-        				<span>FINDER</span>
-      			</div>
-    		</div>
-    		
-    		<div class="menu">
-      			<img class="menu-4-icon" alt="" src="{{ url_for('static', filename='menu 4.svg') }}">
-      			<img class="user-4-icon" alt="" src="{{ url_for('static', filename='user_4.svg') }}">
-    		</div>
-    		
-    		<img class="chair-icon" alt="" src="{{ url_for('static', filename='chair_4.svg') }}">
-    		
-    		<div class="screen-chat">
-      			<div class="bien-sur-voici-une-liste-des-wrapper">
-        				<div class="bien-sur-voici-container">
-          					<p class="bien-sur-voici">Bien sûr, voici la réponse :</p>
-          					<p class="bien-sur-voici">{{ response_text }}</p>
-          					<p class="bien-sur-voici">&nbsp;</p>
-        				</div>
-      			</div>
-    		</div>
-    		<div class="trouve-moi-un-film-de-voiture-wrapper">
-				<form method="POST" action="/generate">
-					<div class="trouve-moi-un">
-						<input type="text" name="prompt" placeholder="Entrez votre prompt ici" required>
-					</div>
-					<div class="cta">
-						<button type="submit" class="valider">Valider</button>
-						<img class="arrow-icon" alt="" src="{{ url_for('static', filename='Arrow.svg') }}">
-					</div>
-				</form>
-		  </div>
-    		<img class="vector-icon" alt="" src="{{ url_for('static', filename='Vector.svg') }}">
+<body style="background-image: url('{{ url_for('static', filename='fond_ecran.svg') }}'); background-size: cover; background-position: center;">
+  	<div class="container">
+    	<header class="top-bar">
+      		<div class="mooviefinder">
+        		<span class="moovie">MOOVIE</span>
+        		<span>FINDER</span>
+      		</div>
+      		<div class="menu-icons">
+        		<img src="{{ url_for('static', filename='user_4.svg') }}" alt="User Icon" class="user-icon">
+      		</div>
+    	</header>
+
+    	<main class="main-content">
+      		<section class="chat-screen">
+        		<div class="response-box">
+          			<p>Bien sûr, voici la réponse :</p>
+          			<p>{{ response_text }}</p>
+        		</div>
+      		</section>
+
+      		<img src="{{ url_for('static', filename='chair_4.svg') }}" alt="Chair Icon" class="chair-icon">
+    	</main>
+
+    	<footer class="footer">
+      		<form method="POST" action="/generate" class="prompt-form">
+        		<input type="text" name="prompt" placeholder="Entrez votre prompt ici" required>
+        		<button type="submit" class="submit-button">
+          			Valider
+          			<img src="{{ url_for('static', filename='Arrow.svg') }}" alt="Arrow Icon" class="arrow-icon">
+        		</button>
+      		</form>
+    	</footer>
   	</div>
 </body>
 </html>
