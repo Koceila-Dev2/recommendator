@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 from mistralai import Mistral
 
+# Charger les variables d'environnement
 load_dotenv()
 api_key = os.getenv("API_KEY")
 
@@ -14,6 +15,15 @@ app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")  # Clé pour la sessi
 client = Mistral(api_key=api_key)
 model = "mistral-large-latest"
 
+# Liste des questions à poser
+questions = [
+    "Quel genre de films aimes-tu le plus ? (par exemple : action, comédie, drame, science-fiction, horreur...)",
+    "As-tu un acteur ou un réalisateur préféré dont tu apprécies particulièrement les films ?",
+    "Quel est le dernier film que tu as vu et que tu as vraiment aimé ?",
+    "Tu préfères les films légers et divertissants, ou plutôt ceux qui sont plus sérieux et intenses ?",
+    "Tu préfères les films avec des intrigues complexes ou ceux qui sont plus impressionnants visuellement ?"
+]
+
 @app.route('/')
 def index():
     return render_template('movie_finder.html')
@@ -22,119 +32,57 @@ def index():
 def generate():
     user_input = request.form['prompt']
 
-    # Si l'historique n'existe pas dans la session, initialiser
-    if 'conversation_history' not in session:
-        session['conversation_history'] = [
-            {
-                "role": "system",
-                "content": (
-                "You are a passionate cinephile and an expert film adviser. "
-                "dans ta reponse tu va etre bref tu va rien dire apart me poser les 5 questions "
-                "les questions faut qu'elles soient pas trop technique et facile à repondre "
-                "Your goal is to help users discover great movies based on their taste. "
-                "tu va commencer quand je te dis 'salut' et tu commencera par un epetite presentation de toi. Tu vas poser les questions une par une dans le but de me proposer un film."
-                )
-            }
-        ]
+    # Initialiser la session pour stocker les réponses si elle n'existe pas
+    if 'conversation_stage' not in session:
+        session['conversation_stage'] = 0
+        session['user_answers'] = []
 
-    # Ajouter l'input utilisateur à l'historique
-    conversation_history = session['conversation_history']
-    conversation_history.append({"role": "user", "content": user_input})
+    # Récupérer l'étape actuelle de la conversation
+    conversation_stage = session['conversation_stage']
+    user_answers = session['user_answers']
 
-    # Générer la réponse du modèle
-    chat_response = client.chat.complete(
-        model=model,
-        messages=conversation_history
-    )
+    # Ajouter la réponse de l'utilisateur à la liste des réponses
+    if conversation_stage > 0:
+        user_answers.append(user_input)
+        session['user_answers'] = user_answers
 
-    # Ajouter la réponse du bot à l'historique
-    response_text = chat_response.choices[0].message.content
-    conversation_history.append({"role": "assistant", "content": response_text})
+    # Poser la question suivante ou générer le top 5 après la dernière question
+    if conversation_stage < len(questions):
+        next_question = questions[conversation_stage]
+        conversation_stage += 1
+        session['conversation_stage'] = conversation_stage
+        return render_template('movie_finder.html', user_input=user_input, response_text=next_question)
 
-    # Sauvegarder l'historique dans la session
-    session['conversation_history'] = conversation_history
+    else:
+        # Construire le prompt pour demander à l'API Mistral de générer un top 5 de films en fonction des réponses
+        conversation_prompt = (
+            "Tu es un expert en cinéma. L'utilisateur a répondu aux questions suivantes pour que tu puisses lui recommander 5 films :\n"
+            f"1. Genre préféré : {user_answers[0]}\n"
+            f"2. Acteur ou réalisateur préféré : {user_answers[1]}\n"
+            f"3. Dernier film apprécié : {user_answers[2]}\n"
+            f"4. Préférence tonale (léger ou intense) : {user_answers[3]}\n"
+            f"5. Intrigue complexe ou visuel impressionnant : {user_answers[4]}\n"
+            "Sur cette base, propose un top 5 de films qui correspondent aux goûts de l'utilisateur, avec une brève explication pour chaque film."
+        )
 
-    # Vérifier si 5 questions ont été posées par l'utilisateur
-    # if len([msg for msg in conversation_history if msg['role'] == 'user']) >= 5:
-    #     # Réinitialiser après la recommandation finale
-    #     session.pop('conversation_history', None)
-    if len([msg for msg in conversation_history if msg['role'] == 'user']) >= 7:
-        # Réinitialiser après la recommandation finale
-        session.pop('conversation_history', None)
+        # Appeler l'API Mistral pour générer la réponse
+        chat_response = client.chat.complete(
+            model=model,
+            messages=[
+                {"role": "system", "content": "Tu es un expert en cinéma qui aide à recommander des films."},
+                {"role": "user", "content": conversation_prompt}
+            ]
+        )
 
-    return render_template('movie_finder.html', user_input=user_input, response_text=response_text)
+        # Extraire la réponse du modèle
+        response_text = chat_response.choices[0].message.content
+
+        # Réinitialiser la session après avoir donné le top 5
+        session.pop('conversation_stage', None)
+        session.pop('user_answers', None)
+
+        # Retourner la réponse générée par l'API
+        return render_template('movie_finder.html', user_input=user_input, response_text=response_text)
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
-# @app.route('/generate', methods=['POST'])
-# def generate():
-    
-   
-   
-#     chat_response = client.chat.complete(
-#         model=model,
-        
-        
-        
-#        messages = conversation_history
-
-#     )
-    
-#     response_text = chat_response.choices[0].message.content
-#     conversation_history.append({"role": "system", "content": response_text})
-#     user_input = request.form['prompt']
-#     conversation_history.append({"role": "user", "content": user_input})
-    
-#     return render_template('movie_finder.html', user_input=user_input, response_text=response_text)
-
-
-
-
-
-
-
-
-# conversation_history = [
-#     {
-#         "role": "system",
-#         "content": (
-#             "You are a passionate cinephile and an expert film adviser. "
-#             "dans ta reponse tu va etre bref tu va rien dire apart me poser les 5 questions "
-#             "les questions faut qu'elles soient pas trop technique et facile à repondre "
-#             "Your goal is to help users discover great movies based on their taste. "
-#             "You love discussing cinema, actors, directors, and different film genres. "
-#             "Tu vas poser les questions une par une dans le but de me proposer un film."
-#         ),
-#     }
-# ]
-
-# # Le chatbot va poser 5 questions une par une
-# num_questions = 5
-# for i in range(num_questions):
-#     # Demander au modèle de générer la prochaine question
-#     chat_response = client.chat.complete(
-#         model=model,
-#         messages=conversation_history
-#     )
-    
-#     # Obtenir la question du modèle
-#     question = chat_response.choices[0].message.content
-#     print(f"Question {i+1}: {question}")
-
-#     # Obtenir la réponse de l'utilisateur
-#     user_response = input("Votre réponse: ")
-
-#     # Ajouter la question et la réponse dans l'historique
-#     conversation_history.append({"role": "assistant", "content": question})
-#     conversation_history.append({"role": "user", "content": user_response})
-
-# print("\nMerci pour vos réponses ! Je vais maintenant vous recommander un film...")
-
-# # Une fois les 5 questions posées, le bot pourrait analyser les réponses pour recommander un film
-# # (Cette partie est à implémenter selon tes besoins)
-
-# if __name__ == "__main__":
-#     ask_question()
