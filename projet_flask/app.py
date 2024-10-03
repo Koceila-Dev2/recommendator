@@ -10,7 +10,7 @@ load_dotenv()
 app = Flask(__name__)
 
 # Initialiser le client Mistral
-client = Mistral(api_key=os.environ["MISTRAL_API_KEY"])
+client = Mistral(api_key="QQG84DG1tDMvuFN2lkOM9RqlGXOA6w11")
 model = "mistral-large-latest"
 
 @app.route('/')
