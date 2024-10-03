@@ -1,12 +1,143 @@
+.moovie {
+    font-weight: 600;
+}
+.mooviefinder {
+    position: absolute;
+    top: 28px;
+    left: 90px;
+}
 .top-bar {
     position: absolute;
     top: -1px;
     left: 0px;
     box-shadow: 0px 4px 18px 2px rgba(0, 0, 0, 0.09);
-    background-color: #fff;
+    background-color: #fdfdfd;
     width: 1280px;
+    height: 80px;
+    overflow: hidden;
+    font-size: 24px;
+}
+.menu-4-icon {
+    position: absolute;
+    top: 13px;
+    left: 15px;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+}
+.user-4-icon {
+    position: absolute;
+    top: 13px;
+    left: 61px;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+}
+.menu {
+    position: absolute;
+    top: 14px;
+    left: 1090px;
+    border-radius: 50px;
+    border: 0.5px solid rgba(39, 39, 39, 0.4);
+    box-sizing: border-box;
+    width: 100px;
     height: 50px;
     overflow: hidden;
+}
+.chair-icon {
+    position: absolute;
+    height: 56.43%;
+    width: 29.16%;
+    top: 43.51%;
+    right: -1.81%;
+    bottom: 0.06%;
+    left: 72.66%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+}
+.trouve-moi-un {
+    position: absolute;
+    top: 16px;
+    left: 32px;
+    font-weight: 300;
+    display: inline-block;
+    width: 374px;
+    height: 41px;
+}
+.trouve-moi-un-film-de-voiture-wrapper {
+    position: absolute;
+    top: 30px;
+    left: 402px;
+    border-radius: 31px;
+    background-color: #fafafa;
+    width: 438px;
+    height: 69px;
+    overflow: hidden;
+}
+.bien-sur-voici {
+    margin: 0;
+    font-weight: 300;
+}
+.fast-and-furious {
+    font-weight: 500;
+}
+.fast-and-furious-x-20241 {
+    line-height: 21px;
+}
+.fast-and-furious-x-2024 {
+    margin-bottom: 0px;
+}
+.fast-and-furious-x-2024-bloo {
+    margin: 0;
+    font-size: inherit;
+    padding-left: 21px;
+}
+.bien-sur-voici-container {
+    position: absolute;
+    top: 16px;
+    left: 32px;
+    display: inline-block;
+    width: 374px;
+    height: 172px;
+}
+.bien-sur-voici-une-liste-des-wrapper {
+    position: absolute;
+    top: 141px;
+    left: 60px;
+    border-radius: 31px;
+    background-color: #f4f4f4;
+    width: 438px;
+    height: 231px;
+    overflow: hidden;
+}
+.screen-chat {
+    position: absolute;
+    top: 129px;
+    left: 190px;
+    box-shadow: 0px 12px 50px 8px rgba(0, 0, 0, 0.15);
+    background-color: #fffdee;
+    width: 900px;
+    height: 500px;
+    overflow: hidden;
+}
+.vector-icon {
+    position: absolute;
+    height: 51.68%;
+    width: 13.44%;
+    top: 48.2%;
+    right: 85.16%;
+    bottom: 0.12%;
+    left: 1.41%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+}
+.quest-ce-quon-regarde {
+    position: absolute;
+    top: 37.5%;
+    left: 3.33%;
+    font-weight: 300;
 }
 .valider {
     position: relative;
@@ -20,16 +151,37 @@
 }
 .cta {
     position: absolute;
-    top: 356px;
-    left: 356px;
-    border-radius: 4px;
-    background-color: #88d498;
+    height: 54.69%;
+    width: 13.11%;
+    top: 21.88%;
+    right: 3.33%;
+    bottom: 23.44%;
+    left: 83.56%;
+    border-radius: 13px;
+    background-color: #ff0000;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 0px 20px;
+    box-sizing: border-box;
     gap: 20px;
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+}
+.quest-ce-quon-regarde-aujour-parent {
+    position: absolute;
+    top: 718px;
+    left: 190px;
+    box-shadow: 0px 8px 30px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    background-color: #fff;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    width: 900px;
+    height: 64px;
+    overflow: hidden;
 }
 .macbook-air-1 {
     width: 100%;
@@ -37,8 +189,8 @@
     background-color: #fff;
     height: 832px;
     overflow: hidden;
-    text-align: center;
-    font-size: 20px;
-    color: #fff;
-    font-family: 'Inter', sans-serif;
+    text-align: left;
+    font-size: 16px;
+    color: #000;
+    font-family: Inter;
 }

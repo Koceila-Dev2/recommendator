@@ -1,20 +1,25 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, render_template, request
 from dotenv import load_dotenv
 import os
 from mistralai import Mistral
 
-app = Flask(__name__)
+# Charger les variables d'environnement à partir du fichier .env
 load_dotenv()
-model = "mistral-large-latest"
-client = Mistral(api_key=os.environ["MISTRAL_API_KEY"])
 
-@app.route('/', methods=['GET'])
-def home():
-    return render_template('index.html', response=None)
+# Initialisation de l'application Flask
+app = Flask(__name__)
+
+# Initialiser le client Mistral
+client = Mistral(api_key=os.environ["MISTRAL_API_KEY"])
+model = "mistral-large-latest"
+
+@app.route('/')
+def index():
+    return render_template('movie_finder.html')
 
 @app.route('/generate', methods=['POST'])
 def generate():
-    user_input = request.form.get('user_input', '')
+    user_input = request.form['prompt']
     chat_response = client.chat.complete(
         model=model,
         messages=[
@@ -24,10 +29,8 @@ def generate():
             },
         ]
     )
-    
-    # Vérifiez si la réponse a bien été obtenue
-    response_message = chat_response.choices[0].message.content if chat_response.choices else "Aucune réponse obtenue."
-    return render_template('index.html', response=response_message)  # Renvoie la réponse à la page d'accueil
+    response_text = chat_response.choices[0].message.content
+    return render_template('movie_finder.html', user_input=user_input, response_text=response_text)
 
 if __name__ == '__main__':
     app.run(debug=True)

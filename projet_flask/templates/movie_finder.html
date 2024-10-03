@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="initial-scale=1, width=device-width">
+  	<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
+  	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" />
+</head>
+<body>
+  	<div class="macbook-air-1">
+    		<div class="top-bar">
+      			<div class="mooviefinder">
+        				<span class="moovie">MOOVIE</span>
+        				<span>FINDER</span>
+      			</div>
+    		</div>
+    		
+    		<div class="menu">
+      			<img class="menu-4-icon" alt="" src="{{ url_for('static', filename='menu 4.svg') }}">
+      			<img class="user-4-icon" alt="" src="{{ url_for('static', filename='user_4.svg') }}">
+    		</div>
+    		
+    		<img class="chair-icon" alt="" src="{{ url_for('static', filename='chair_4.svg') }}">
+    		
+    		<div class="screen-chat">
+      			<div class="trouve-moi-un-film-de-voiture-wrapper">
+        				<form method="POST" action="/generate">
+        					<div class="trouve-moi-un">
+        						<input type="text" name="prompt" placeholder="Entrez votre prompt ici" required>
+        					</div>
+        					<div class="cta">
+        						<button type="submit" class="valider">Valider</button>
+        						<img class="arrow-icon" alt="" src="{{ url_for('static', filename='Arrow.svg') }}">
+        					</div>
+        				</form>
+      			</div>
+      			<div class="bien-sur-voici-une-liste-des-wrapper">
+        				<div class="bien-sur-voici-container">
+          					<p class="bien-sur-voici">Bien sûr, voici la réponse :</p>
+          					<p class="bien-sur-voici">{{ response_text }}</p>
+          					<p class="bien-sur-voici">&nbsp;</p>
+        				</div>
+      			</div>
+    		</div>
+    		
+    		<img class="vector-icon" alt="" src="{{ url_for('static', filename='Vector.svg') }}">
+  	</div>
+</body>
+</html>
