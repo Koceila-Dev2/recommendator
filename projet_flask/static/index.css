@@ -1,195 +1,136 @@
-.moovie {
-    font-weight: 600;
-}
-.mooviefinder {
-    position: absolute;
-    top: 28px;
-    left: 90px;
-}
-.top-bar {
-    position: absolute;
-    top: -1px;
-    left: 0px;
-    box-shadow: 0px 4px 18px 2px rgba(0, 0, 0, 0.09);
-    background-color: #fdfdfd;
-    width: 100%;
-    height: 80px;
-    overflow: hidden;
-    font-size: 24px;
-}
-.menu-4-icon {
-    position: absolute;
-    top: 13px;
-    left: 10%;
-    width: 24px;
-    height: 24px;
-    overflow: hidden;
-}
-.user-4-icon {
-    position: absolute;
-    top: 13px;
-    left: 61px;
-    width: 24px;
-    height: 24px;
-    overflow: hidden;
-}
-.menu {
-    position: absolute;
-    top: 14px;
-    right: 10%;
-    border-radius: 50px;
-    border: 0.5px solid rgba(39, 39, 39, 0.4);
+* {
     box-sizing: border-box;
-    width: 100px;
-    height: 50px;
-    overflow: hidden;
-}
-.chair-icon {
-    position: absolute;
-    height: 40%;
-    width: 29.16%;
-    top: 40%;
-    right: -10%;
-    bottom: 0.06%;
-    max-width: 100%;
-    overflow: hidden;
-    max-height: 100%;
-}
-.trouve-moi-un {
-    position: absolute;
-    top: 16px;
-    left: 32px;
-    font-weight: 300;
-    display: inline-block;
-    width: 374px;
-    height: 41px;
-}
-.trouve-moi-un-film-de-voiture-wrapper {
-    position: absolute;
-    bottom: 10%;
-    left: 402px;
-    border-radius: 31px;
-    background-color: #fafafa;
-    width: 438px;
-    height: 69px;
-    overflow: hidden;
-}
-.bien-sur-voici {
     margin: 0;
-    font-weight: 300;
+    padding: 0;
 }
-.fast-and-furious {
-    font-weight: 500;
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #fff;
 }
-.fast-and-furious-x-20241 {
-    line-height: 21px;
-}
-.fast-and-furious-x-2024 {
-    margin-bottom: 0px;
-}
-.fast-and-furious-x-2024-bloo {
-    margin: 0;
-    font-size: inherit;
-    padding-left: 21px;
-}
-.bien-sur-voici-container {
-    position: absolute;
-    top: 16px;
-    left: 32px;
-    display: inline-block;
-    width: 374px;
-    height: 172px;
-}
-.bien-sur-voici-une-liste-des-wrapper {
-    position: absolute;
-    top: 141px;
-    left: 60px;
-    border-radius: 31px;
-    background-color: #f4f4f4;
-    width: 438px;
-    height: 231px;
-    overflow: hidden;
-}
-.screen-chat {
-    position: absolute;
-    top: 129px;
-    left: 190px;
-    box-shadow: 0px 12px 50px 8px rgba(0, 0, 0, 0.15);
-    background-color: #fffdee;
-    width: 900px;
-    height: 500px;
-    overflow: hidden;
-}
-.vector-icon {
-    position: absolute;
-    height: 51.68%;
-    width: 13.44%;
-    top: 48.2%;
-    right: 85.16%;
-    bottom: 0.12%;
-    left: 1.41%;
-    max-width: 100%;
-    overflow: hidden;
-    max-height: 100%;
-}
-.quest-ce-quon-regarde {
-    position: absolute;
-    top: 37.5%;
-    left: 3.33%;
-    font-weight: 300;
-}
-.valider {
-    position: relative;
-    font-weight: 300;
-}
-.arrow-icon {
-    width: 20px;
-    position: relative;
-    height: 19.1px;
-    object-fit: contain;
-}
-.cta {
-    position: absolute;
-    height: 54.69%;
-    width: 13.11%;
-    top: 21.88%;
-    right: 3.33%;
-    bottom: 23.44%;
-    left: 83.56%;
-    border-radius: 13px;
-    background-color: #ff0000;
+
+.container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Barre supérieure - mise à jour pour occuper toute la largeur */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    padding: 0px 20px;
-    box-sizing: border-box;
-    gap: 20px;
-    text-align: center;
-    font-size: 20px;
-    color: #fff;
+    padding: 20px;
+    background-color: #fdfdfd;
+    box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.09);
+    width: 100%; /* Utiliser 100% pour s'assurer qu'elle ne déborde pas */
+    position: absolute; /* Changez en absolute pour qu'elle soit positionnée par rapport à son parent */
+    top: 0; /* Fixez la barre en haut */
+    left: 0; /* Commencez à gauche */
+    box-sizing: border-box; /* Inclure padding et bord dans la largeur */
 }
-.quest-ce-quon-regarde-aujour-parent {
-    position: absolute;
-    top: 718px;
-    left: 190px;
-    box-shadow: 0px 8px 30px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 30px;
-    background-color: #fff;
-    border: 1px solid #000;
-    box-sizing: border-box;
-    width: 900px;
-    height: 64px;
-    overflow: hidden;
-}
-.macbook-air-1 {
-    width: 100%;
-    position: relative;
-    background-color: #fff;
-    height: 832px;
-    overflow: hidden;
-    text-align: left;
-    font-size: 16px;
+
+
+.mooviefinder {
+    font-size: 24px;
+    font-weight: 600;
     color: #000;
-    font-family: Inter;
+}
+
+.menu-icons {
+    display: flex;
+    gap: 20px;
+}
+
+.menu-icon, .user-icon {
+    height: 24px;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    margin-top: 20px;
+}
+
+.chat-screen {
+    box-shadow: 0px 12px 50px rgba(0, 0, 0, 0.15);
+    padding: 40px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 60px; /* Ajoute une marge supérieure pour l'éloigner de la top-bar */
+}
+
+
+.response-box {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.vector-icon, .chair-icon {
+    width: 10%;
+    margin-top: 10%;
+}
+
+.footer {
+    margin-top: auto;
+    padding-left: 13%;
+    padding-top: 10%;
+    padding-bottom: 5%;
+}
+
+.prompt-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fafafa;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 900px;
+}
+
+.prompt-form input {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.submit-button {
+    display: flex;
+    align-items: center;
+    background-color: #ff0000;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.arrow-icon {
+    margin-left: 10px;
+    width: 20px;
+}
+
+@media (max-width: 768px) {
+    .main-content, .chat-screen, .prompt-form {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .mooviefinder {
+        font-size: 18px;
+    }
+    
+    .vector-icon, .chair-icon {
+        width: 20%;
+    }
 }
