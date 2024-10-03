@@ -3,3 +3,4 @@ python-dotenv
 requests
 streamlit
 PyQt5
+flask
