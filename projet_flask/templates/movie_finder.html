@@ -23,17 +23,6 @@
     		<img class="chair-icon" alt="" src="{{ url_for('static', filename='chair_4.svg') }}">
     		
     		<div class="screen-chat">
-      			<div class="trouve-moi-un-film-de-voiture-wrapper">
-        				<form method="POST" action="/generate">
-        					<div class="trouve-moi-un">
-        						<input type="text" name="prompt" placeholder="Entrez votre prompt ici" required>
-        					</div>
-        					<div class="cta">
-        						<button type="submit" class="valider">Valider</button>
-        						<img class="arrow-icon" alt="" src="{{ url_for('static', filename='Arrow.svg') }}">
-        					</div>
-        				</form>
-      			</div>
       			<div class="bien-sur-voici-une-liste-des-wrapper">
         				<div class="bien-sur-voici-container">
           					<p class="bien-sur-voici">Bien sûr, voici la réponse :</p>
@@ -42,7 +31,17 @@
         				</div>
       			</div>
     		</div>
-    		
+    		<div class="trouve-moi-un-film-de-voiture-wrapper">
+				<form method="POST" action="/generate">
+					<div class="trouve-moi-un">
+						<input type="text" name="prompt" placeholder="Entrez votre prompt ici" required>
+					</div>
+					<div class="cta">
+						<button type="submit" class="valider">Valider</button>
+						<img class="arrow-icon" alt="" src="{{ url_for('static', filename='Arrow.svg') }}">
+					</div>
+				</form>
+		  </div>
     		<img class="vector-icon" alt="" src="{{ url_for('static', filename='Vector.svg') }}">
   	</div>
 </body>
