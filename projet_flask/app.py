@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, session
 from dotenv import load_dotenv
 import os
 from mistralai import Mistral
+from film_ibm_bot import get_movie_info, get_mistral_summary, get_mistral_recommendation
 
 # Charger les variables d'environnement
 load_dotenv()
@@ -30,31 +31,32 @@ def index():
 
 @app.route('/generate', methods=['POST'])
 def generate():
-    user_input = request.form['prompt']
+    user_input = request.form['prompt']  # Récupérer la réponse de l'utilisateur
 
     # Initialiser la session pour stocker les réponses si elle n'existe pas
     if 'conversation_stage' not in session:
         session['conversation_stage'] = 0
         session['user_answers'] = []
 
-    # Récupérer l'étape actuelle de la conversation
+    # Récupérer l'étape actuelle de la conversation et les réponses déjà données
     conversation_stage = session['conversation_stage']
     user_answers = session['user_answers']
 
-    # Ajouter la réponse de l'utilisateur à la liste des réponses
+    # Si ce n'est pas la première question, stocker la réponse de l'utilisateur précédente
     if conversation_stage > 0:
         user_answers.append(user_input)
         session['user_answers'] = user_answers
 
-    # Poser la question suivante ou générer le top 5 après la dernière question
+    # Vérifier si on a atteint la fin des questions
     if conversation_stage < len(questions):
+        # Poser la question suivante
         next_question = questions[conversation_stage]
         conversation_stage += 1
         session['conversation_stage'] = conversation_stage
-        return render_template('movie_finder.html', user_input=user_input, response_text=next_question)
+        return render_template('movie_finder.html', response_text=next_question)
 
     else:
-        # Construire le prompt pour demander à l'API Mistral de générer un top 5 de films en fonction des réponses
+        # Si toutes les questions sont répondues, générer les recommandations
         conversation_prompt = (
             "Tu es un expert en cinéma. L'utilisateur a répondu aux questions suivantes pour que tu puisses lui recommander 5 films :\n"
             f"1. Genre préféré : {user_answers[0]}\n"
@@ -81,8 +83,20 @@ def generate():
         session.pop('conversation_stage', None)
         session.pop('user_answers', None)
 
-        # Retourner la réponse générée par l'API
-        return render_template('movie_finder.html', user_input=user_input, response_text=response_text)
+        # Retourner la réponse générée par l'API avec les recommandations comme liens cliquables
+        recommended_movies = [movie.strip() for movie in response_text.split('\n') if movie]  # Extraire les films de la réponse
+        return render_template('movie_finder.html', response_text=response_text, recommended_movies=recommended_movies)
+
+@app.route('/movie_info/<movie_title>', methods=['GET'])
+def movie_info(movie_title):
+    # Récupérer les informations détaillées sur le film
+    movie_info = get_movie_info(movie_title)
+    if isinstance(movie_info, dict):
+        summary = get_mistral_summary(movie_info['Plot'])
+        recommendations = get_mistral_recommendation(movie_title)
+        return render_template('movie_info.html', movie_info=movie_info, summary=summary, recommendations=recommendations)
+    else:
+        return render_template('error.html', error=movie_info)
 
 if __name__ == '__main__':
     app.run(debug=True)

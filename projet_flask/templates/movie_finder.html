@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  	<meta charset="utf-8">
-  	<meta name="viewport" content="width=device-width, initial-scale=1">
-  	<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-  	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap">
-  	<title>MoovieFinder</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <title>MoovieFinder</title>
 </head>
-<body style="background-image: url('{{ url_for('static', filename='fond_ecran.svg') }}'); background-size: cover; background-position: center;">
-  	<div class="container">
-    	<header class="top-bar">
-      		<div class="mooviefinder">
-        		<span class="moovie">MOOVIE</span>
-        		<span>FINDER</span>
-      		</div>
-      		<div class="menu-icons">
-        		<img src="{{ url_for('static', filename='user_4.svg') }}" alt="User Icon" class="user-icon">
-      		</div>
-    	</header>
+<body>
+    <div class="container">
+        <header class="top-bar">
+            <div class="mooviefinder">
+                <span class="moovie">MOOVIE</span>
+                <span>FINDER</span>
+            </div>
+        </header>
 
-    	<main class="main-content">
-      		<section class="chat-screen">
-        		<div class="response-box">
-          			<p>Bien sûr, voici la réponse :</p>
-          			<p>{{ response_text }}</p>
-        		</div>
-      		</section>
+        <main class="main-content">
+            <section class="chat-screen">
+                <div class="response-box">
+                    <p>{{ response_text }}</p>
+                </div>
+                <div class="recommendations">
+                    <h2>Films recommandés</h2>
+                    <ul>
+                        {% for movie in recommended_movies %}
+                        <li><a href="{{ url_for('movie_info', movie_title=movie) }}">{{ movie }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+        </main>
 
-      		<img src="{{ url_for('static', filename='chair_4.svg') }}" alt="Chair Icon" class="chair-icon">
-    	</main>
-
-    	<footer class="footer">
-      		<form method="POST" action="/generate" class="prompt-form">
-        		<input type="text" name="prompt" placeholder="Entrez votre prompt ici" required>
-        		<button type="submit" class="submit-button">
-          			Valider
-          			<img src="{{ url_for('static', filename='Arrow.svg') }}" alt="Arrow Icon" class="arrow-icon">
-        		</button>
-      		</form>
-    	</footer>
-  	</div>
+        <footer class="footer">
+            <form method="POST" action="/generate" class="prompt-form">
+                <input type="text" name="prompt" placeholder="Entrez votre réponse ici" required>
+                <button type="submit" class="submit-button">
+                    Valider
+                </button>
+            </form>
+        </footer>
+    </div>
 </body>
 </html>
