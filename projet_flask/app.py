@@ -96,6 +96,7 @@ def movie_info(movie_title):
         recommendations = get_mistral_recommendation(movie_title)
         return render_template('movie_info.html', movie_info=movie_info, summary=summary, recommendations=recommendations)
     else:
+        # En cas d'erreur, on affiche la page d'erreur
         return render_template('error.html', error=movie_info)
 
 if __name__ == '__main__':
